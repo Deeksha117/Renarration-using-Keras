@@ -53,7 +53,7 @@ class Autoencoder:
     def prepare_dataset(self,raw_text):
         dataX = []
         dataY = []
-        for sent in raw_text:
+        for sent in raw_text[:100]:
             seq_in = self.frame_input(sent)
             tagged_sent = dict(pos_tag(seq_in))
             record = []
@@ -119,15 +119,16 @@ class Autoencoder:
         self.inter.save(filepath4)
 
     def resume_run(self, dataX, dataY, filepath):
+        filepath1 = filepath
         filepath = filepath.split("/")[0]
-        filepath2 = filepath+"/encodermodel.hdf5"
-        filepath3 = filepath+"/decodermodel.hdf5"
-        filepath4 = filepath+"/intermodel.hdf5"
+        # filepath2 = filepath+"/encodermodel.hdf5"
+        # filepath3 = filepath+"/decodermodel.hdf5"
+        # filepath4 = filepath+"/intermodel.hdf5"
 
-        self.mymodel = keras.models.load_model(filepath)
-        self.encoder = keras.models.load_model(filepath2)
-        self.decoder = keras.models.load_model(filepath3)
-        self.inter = keras.models.load_model(filepath4)
+        self.mymodel = keras.models.load_model(filepath1)
+        # self.encoder = keras.models.load_model(filepath2)
+        # self.decoder = keras.models.load_model(filepath3)
+        # self.inter = keras.models.load_model(filepath4)
         self.run(dataX, dataY, filepath)
 
     def setup_test(self,model_filename):
