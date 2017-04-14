@@ -53,7 +53,7 @@ class Autoencoder:
     def prepare_dataset(self,raw_text):
         dataX = []
         dataY = []
-        for sent in raw_text[:100]:
+        for sent in raw_text:
             seq_in = self.frame_input(sent)
             tagged_sent = dict(pos_tag(seq_in))
             record = []
@@ -113,7 +113,7 @@ class Autoencoder:
         callbacks_list = [checkpoint]
 
         # and trained it via:
-        self.mymodel.fit(X,X,nb_epoch=30, batch_size=10, shuffle=True, callbacks=callbacks_list)
+        self.mymodel.fit(X,X,nb_epoch=100, batch_size=10, shuffle=True, callbacks=callbacks_list)
         self.encoder.save(filepath2)
         self.decoder.save(filepath3)
         self.inter.save(filepath4)
